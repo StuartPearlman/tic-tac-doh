@@ -1,0 +1,19 @@
+td {
+	text-align: center;
+	border: solid;
+	width: 4em;
+	height: 4em;
+}
+
+table{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+h1{
+	text-align: center;
+}
+
+h2{
+	text-align: center;
+}
