@@ -2,6 +2,8 @@ $(document).ready(function() {
 
     var turn = 0
 
+    var gameArray = []
+
     var taken1 = {
         1: false,
         2: false,
@@ -62,44 +64,50 @@ $(document).ready(function() {
         17: false
     }
 
-
     $("td").click(function(event) {
-        
-        var cell_value = parseInt(event.target.id);
-        
-        if (turn % 2 == 0) {
-            
-            $("#" + cell_value).text("X");
-            
-            if (pairs1[15 - cell_value]) {
-                alert("Player One Wins!")
-            };
 
-            for (var k = 1; k < 10; k++) {
-                if ((taken1[k]) && (k + cell_value < 15)) {
-                    pairs1[k + cell_value] = true;
+        var cellValue = parseInt(event.target.id);
+
+        if (gameArray.indexOf(cellValue) == -1) {
+
+            if (turn % 2 == 0) {
+
+                $("#" + cellValue).text("X");
+
+                if (pairs1[15 - cellValue]) {
+                    location.reload();
+                    alert("Player One Wins!");
                 };
-            };
-            
-            taken1[cell_value] = true;
 
-        } else {
-            
-            $("#" + cell_value).text("O");
-
-            if (pairs2[15 - cell_value]) {
-                alert("Player Two Wins!")
-            };
-
-            for (var k = 1; k < 10; k++) {
-                if ((taken2[k]) && (k + cell_value < 15)) {
-                    pairs2[k + cell_value] = true;
+                for (var k = 1; k < 10; k++) {
+                    if ((taken1[k]) && (k + cellValue < 15)) {
+                        pairs1[k + cellValue] = true;
+                    };
                 };
+
+                taken1[cellValue] = true;
+
+            } else {
+
+                $("#" + cellValue).text("O");
+
+                if (pairs2[15 - cellValue]) {
+                    location.reload();
+                    alert("Player Two Wins!");
+                };
+
+                for (var k = 1; k < 10; k++) {
+                    if ((taken2[k]) && (k + cellValue < 15)) {
+                        pairs2[k + cellValue] = true;
+                    };
+                };
+
+                taken2[cellValue] = true;
             };
-            
-            taken2[cell_value] = true;
+
+            turn += 1;
+            gameArray.push(cellValue);
+            console.log(gameArray);
         };
-
-        turn += 1;
     });
 });
