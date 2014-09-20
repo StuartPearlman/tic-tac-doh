@@ -1,6 +1,10 @@
 require 'rubygems'
 require 'rack/test'
 require 'nokogiri'
+require "rspec"
+require "capybara"
+require "capybara/dsl"
+require "capybara/rspec"
 
 # All our specs should require 'spec_helper' (this file)
 
@@ -10,6 +14,21 @@ require 'nokogiri'
 ENV['RACK_ENV'] ||= 'test'
 
 require File.expand_path("../../config/environment", __FILE__)
+
+# require_relative "./../server"
+
+Capybara.app               = Sinatra::Application
+Capybara.javascript_driver = :selenium
+Capybara.default_wait_time = 10
+
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app, :browser => :chrome)
+end
+
+RSpec.configure do |config|
+  config.mock_with :rspec
+  config.include Capybara::DSL
+end
 
 module SinatraHelper
   def app
@@ -30,17 +49,24 @@ module FakeSessionHelper
 
   %w(get post put patch delete head).each do |request_method|
     module_eval <<-EOM
-      def #{request_method}(path, params={}, env={}, &block)
-        super(path, params, { 'rack.session' => session }.merge(env), &block)
-        @session = last_request.env['rack.session']
-      end
+    def #{request_method}(path, params={}, env={}, &block)
+      super(path, params, { 'rack.session' => session }.merge(env), &block)
+      @session = last_request.env['rack.session']
+    end
     EOM
   end
 end
 
-RSpec.configure do |conf|
-  conf.include Rack::Test::Methods
-  conf.include SinatraHelper
-  conf.include NokogiriHelper
-  conf.include FakeSessionHelper
+RSpec.configure do |config|
+  config.include Rack::Test::Methods
+  config.include SinatraHelper
+  config.include NokogiriHelper
+  config.include FakeSessionHelper
+  config.include Capybara::DSL
+  config.mock_with :rspec
+  config.after do
+    if example.metadata[:type] == :feature and example.exception.present?
+      save_and_open_page
+    end
+  end
 end

@@ -152,3 +152,5 @@ rescue LoadError
     puts "HI THERE, there's no default task"
   end
 end
+require 'jasmine'
+load 'jasmine/tasks/jasmine.rake'

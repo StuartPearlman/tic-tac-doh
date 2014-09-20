@@ -21,4 +21,9 @@ group :test do
   gem 'rspec'
   gem 'nokogiri', '~> 1.6.1'
   gem 'faker'
+  gem 'jasmine'
+  gem 'capybara'
+  gem 'selenium'
+  gem 'selenium-webdriver'
+  gem 'launchy'
 end
