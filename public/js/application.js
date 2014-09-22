@@ -251,7 +251,6 @@ $(document).ready(function() {
     //strategicChoice() logic
 
     function easyMode(compChoices) {
-        console.log("easy mode");
         return middleSquare(compChoices) || anyCorner(compChoices) || false;
     };
 
@@ -282,7 +281,7 @@ $(document).ready(function() {
     function attemptFork(compChoices) {
 
         if (firstSide && oppositeSide) {
-            anyCorner(compChoices);
+            return anyCorner(compChoices);
         };
 
         return false;
@@ -290,7 +289,6 @@ $(document).ready(function() {
 
     function middleSquare(compChoices) {
 
-        console.log("middle");
         for (var k = 0; k < compChoices.length; k++) {
 
             if (compChoices[k] == 5) {
@@ -324,7 +322,6 @@ $(document).ready(function() {
     };
 
     function anyCorner(compChoices) {
-        console.log("any corner");
 
         for (var k = 0; k < compChoices.length; k++) {
 

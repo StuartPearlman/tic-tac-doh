@@ -9,9 +9,9 @@
 #   - lib/source1.js
 #   - lib/source2.js
 #   - dist/**/*.js
-#
+# 
 src_files:
-  - public/js/**/*.js
+  - public/js/*.js
 
 # stylesheets
 #
@@ -25,7 +25,7 @@ src_files:
 #   - stylesheets/*.css
 #
 stylesheets:
-  - stylesheets/**/*.css
+  - public/css/*.css
 
 # helpers
 #
