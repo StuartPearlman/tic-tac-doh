@@ -2,9 +2,17 @@ $(document).ready(function() {
 
     var randFirstPlayer = Math.random()
 
+    , easy = true
+
+    , medium = false
+
+    , hard = false
+
     , spotsTaken = []
 
-    , playing = true
+    , playing = false
+
+    , newGame = false
 
     , turn = 1
 
@@ -74,11 +82,41 @@ $(document).ready(function() {
         17: false
     };
 
+    //Difficulty selection
+
+    $("#easy").click(function(event) {
+        easy = true;
+        medium = false;
+        hard = false;
+        $(".subheading").replaceWith("<h2 class='subheading'>The game you can win.</h2>");
+    });
+
+    $("#medium").click(function(event) {
+        easy = false;
+        medium = true;
+        hard = false;
+        $(".subheading").replaceWith("<h2 class='subheading'>The game you might win.</h2>");
+    });
+
+    $("#hard").click(function(event) {
+        easy = false;
+        medium = false;
+        hard = true;
+        $(".subheading").replaceWith("<h2 class='subheading'>The game you won't win.</h2>");
+    });
+
     //Game logic
 
-    if (randFirstPlayer <= 1) {
-        compTurn();
-    };
+
+    $("#start").click(function(event) {
+        if (newGame == false) {
+            newGame = true;
+            playing = true;
+            if (hard || randFirstPlayer <= 0.5) {
+                compTurn();
+            };
+        };
+    });
 
 
     $("td").click(function(event) {
@@ -91,6 +129,8 @@ $(document).ready(function() {
         };
 
         playerFirstCorner();
+
+        playerFirstSide();
 
         playerOppositeSide();
     });
@@ -111,7 +151,6 @@ $(document).ready(function() {
         if (spotsTaken.length > 8) {
             playing = false;
             location.reload();
-            // alert("Cat's Game!");
         };
     };
 
@@ -123,8 +162,7 @@ $(document).ready(function() {
 
         if (playerPairs[15 - cellValue]) {
             playing = false;
-            // location.reload();
-            $("body").append("Player Wins!");
+            $(".game").append("Player Wins!");
         };
 
         for (var k = 1; k < 10; k++) {
@@ -136,7 +174,7 @@ $(document).ready(function() {
         playerTaken[cellValue] = true;
         spotsTaken.push(cellValue);
         turn += 1;
-        $("body").append("Player:" + cellValue);
+        // $(".game").append("Player:" + cellValue);
     };
 
     //AI logic
@@ -145,14 +183,13 @@ $(document).ready(function() {
 
         cellValue = compChoice();
 
-        $("body").append("Computer:" + cellValue);
+        // $(".game").append("Computer:" + cellValue);
 
         $("#" + cellValue).text("O");
 
         if (compPairs[15 - cellValue]) {
             playing = false;
             location.reload();
-            // alert("Computer Wins!");
         };
 
         for (var k = 1; k < 10; k++) {
@@ -171,10 +208,10 @@ $(document).ready(function() {
 
         var compChoices = emptySquares();
 
-        return blockOrWin(compChoices) || strategicChoice(compChoices) || compChoices[randomChoice(compChoices)];
+        return winOrBlock(compChoices) || strategicChoice(compChoices) || compChoices[randomChoice(compChoices)];
     };
 
-    function blockOrWin(compChoices) {
+    function winOrBlock(compChoices) {
 
         for (var k = 0; k < compChoices.length; k++) {
 
@@ -195,6 +232,35 @@ $(document).ready(function() {
 
     function strategicChoice(compChoices) {
 
+        if (easy) {
+            return easyMode(compChoices);
+        } else {
+            return mediumToHard(compChoices);
+        };
+    };
+
+    function emptySquares() {
+        var possibleChoices = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        return $(possibleChoices).not(spotsTaken).get();
+    };
+
+    function randomChoice(array) {
+        return Math.floor(Math.random() * array.length);
+    };
+
+    //strategicChoice() logic
+
+    function easyMode(compChoices) {
+        console.log("easy mode");
+        return middleSquare(compChoices) || anyCorner(compChoices) || false;
+    };
+
+    function mediumToHard(compChoices) {
+        return strategicSide(compChoices) || attemptFork(compChoices) || middleSquare(compChoices) || oppositeCorner(compChoices) || anyCorner(compChoices) || false;
+    };
+
+    function strategicSide(compChoices) {
+
         if (firstCorner && turn == 4) {
 
             for (var k = 0; k < compChoices.length; k++) {
@@ -203,39 +269,45 @@ $(document).ready(function() {
 
                 if (compChoices[k] == 1 || compChoices[k] == 3 || compChoices[k] == 7 || compChoices[k] == 9) {
 
-                    sides.push(compChoices[k]); //any side
+                    sides.push(compChoices[k]);
                 };
 
                 return sides[randomChoice(sides)];
             };
         };
 
+        return false;
+    };
+
+    function attemptFork(compChoices) {
+
         if (firstSide && oppositeSide) {
-            for (var k = 0; k < compChoices.length; k++) {
-
-                var corners = [];
-
-                if (compChoices[k] == 8 || compChoices[k] == 6 || compChoices[k] == 2 || compChoices[k] == 4) {
-
-                    corners.push(compChoices[k]); //any corner 
-                };
-
-                return corners[randomChoice(corners)];
-            };
+            anyCorner(compChoices);
         };
 
+        return false;
+    };
+
+    function middleSquare(compChoices) {
+
+        console.log("middle");
         for (var k = 0; k < compChoices.length; k++) {
 
             if (compChoices[k] == 5) {
 
-                return compChoices[k]; //middle
+                return compChoices[k];
             };
         };
+
+        return false;
+    };
+
+    function oppositeCorner(compChoices) {
 
         for (var k = 0; k < compChoices.length; k++) {
 
             if (compChoices[k] == 6 && playerTaken[4]) {
-                return compChoices[k]; //opposite corner
+                return compChoices[k];
             };
             if (compChoices[k] == 8 && playerTaken[2]) {
                 return compChoices[k];
@@ -248,13 +320,19 @@ $(document).ready(function() {
             };
         };
 
+        return false;
+    };
+
+    function anyCorner(compChoices) {
+        console.log("any corner");
+
         for (var k = 0; k < compChoices.length; k++) {
 
             var corners = [];
 
             if (compChoices[k] == 8 || compChoices[k] == 6 || compChoices[k] == 2 || compChoices[k] == 4) {
 
-                corners.push(compChoices[k]); //any corner 
+                corners.push(compChoices[k]);
             };
 
             return corners[randomChoice(corners)];
@@ -263,14 +341,7 @@ $(document).ready(function() {
         return false;
     };
 
-    function emptySquares() {
-        var possibleChoices = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-        return $(possibleChoices).not(spotsTaken).get();
-    };
-
-    function randomChoice(array) {
-        return Math.floor(Math.random() * array.length);
-    };
+    //Player behavioral tracking
 
     function playerFirstCorner() {
         if ((turn == 1) && (playerTaken[8] || playerTaken[6] || playerTaken[4] || playerTaken[2])) {
