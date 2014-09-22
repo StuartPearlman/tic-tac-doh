@@ -8,6 +8,12 @@ $(document).ready(function() {
 
     , turn = 1
 
+    , firstCorner = false
+
+    , firstSide = false
+
+    , oppositeSide = false
+
     , compTaken = {
         1: false,
         2: false,
@@ -74,6 +80,7 @@ $(document).ready(function() {
         compTurn();
     };
 
+
     $("td").click(function(event) {
 
         var cellValue = parseInt(event.target.id);
@@ -82,6 +89,10 @@ $(document).ready(function() {
 
             runGame(cellValue);
         };
+
+        playerFirstCorner();
+
+        playerOppositeSide();
     });
 
     function runGame(cellValue) {
@@ -184,54 +195,34 @@ $(document).ready(function() {
 
     function strategicChoice(compChoices) {
 
-        // if (playerTaken[5] && turn == 2) {
-        //     return 8; //corner
-        // };
+        if (firstCorner && turn == 4) {
 
-        // for (var k = 0; k < compChoices.length; k++) {
+            for (var k = 0; k < compChoices.length; k++) {
 
-        //     if (compChoices[k] == 5) {
-        //         return 5; //center
-        //     };
+                var sides = [];
 
-        //     if ((compChoices[k] == 8 && playerTaken[5] && playerTaken[6]) ||
-        //         (compChoices[k] == 2 && playerTaken[5] && playerTaken[6]) ||
+                if (compChoices[k] == 1 || compChoices[k] == 3 || compChoices[k] == 7 || compChoices[k] == 9) {
 
-        //         (compChoices[k] == 6 && playerTaken[5] && playerTaken[8]) ||
-        //         (compChoices[k] == 4 && playerTaken[5] && playerTaken[8]) ||
+                    sides.push(compChoices[k]); //any side
+                };
 
-        //         (compChoices[k] == 6 && playerTaken[5] && playerTaken[2]) ||
-        //         (compChoices[k] == 4 && playerTaken[5] && playerTaken[2]) ||
+                return sides[randomChoice(sides)];
+            };
+        };
 
-        //         (compChoices[k] == 8 && playerTaken[5] && playerTaken[4]) ||
-        //         (compChoices[k] == 2 && playerTaken[5] && playerTaken[4])) {
+        if (firstSide && oppositeSide) {
+            for (var k = 0; k < compChoices.length; k++) {
 
-        //         return compChoices[k]; //strategic block
-        //     };
+                var corners = [];
 
-        // };
+                if (compChoices[k] == 8 || compChoices[k] == 6 || compChoices[k] == 2 || compChoices[k] == 4) {
 
-        // for (var k = 0; k < compChoices.length; k++) {
+                    corners.push(compChoices[k]); //any corner 
+                };
 
-        //     if ((compChoices[k] == 8 && playerTaken[1] && playerTaken[3]) ||
-        //         (compChoices[k] == 6 && playerTaken[1] && playerTaken[7]) ||
-        //         (compChoices[k] == 2 && playerTaken[9] && playerTaken[7]) ||
-        //         (compChoices[k] == 4 && playerTaken[9] && playerTaken[3])) {
-
-        //         return compChoices[k]; //strategic corner
-        //     };
-        // };
-
-        // for (var k = 0; k < compChoices.length; k++) {
-
-        //     if (
-
-        //         ((compChoices[k] == 8 || compChoices[k] == 6) && (playerTaken[1])) ||
-        //         ((compChoices[k] == 4 || compChoices[k] == 2) && (playerTaken[9])) )  {
-
-        //         return compChoices[k]; //adjacent corner
-        //     };
-        // };
+                return corners[randomChoice(corners)];
+            };
+        };
 
         for (var k = 0; k < compChoices.length; k++) {
 
@@ -243,19 +234,18 @@ $(document).ready(function() {
 
         for (var k = 0; k < compChoices.length; k++) {
 
+            if (compChoices[k] == 6 && playerTaken[4]) {
+                return compChoices[k]; //opposite corner
+            };
             if (compChoices[k] == 8 && playerTaken[2]) {
                 return compChoices[k];
-            }; 
-            if (compChoices[k] == 6 && playerTaken[4]) {
-                return compChoices[k];
-            }; 
-            if (compChoices[k] == 4 && playerTaken[6]) {
-                return compChoices[k];
-            }; 
+            };
             if (compChoices[k] == 2 && playerTaken[8]) {
                 return compChoices[k];
-            }; 
-
+            };
+            if (compChoices[k] == 4 && playerTaken[6]) {
+                return compChoices[k];
+            };
         };
 
         for (var k = 0; k < compChoices.length; k++) {
@@ -282,4 +272,21 @@ $(document).ready(function() {
         return Math.floor(Math.random() * array.length);
     };
 
+    function playerFirstCorner() {
+        if ((turn == 1) && (playerTaken[8] || playerTaken[6] || playerTaken[4] || playerTaken[2])) {
+            firstCorner = true;
+        };
+    };
+
+    function playerFirstSide() {
+        if ((turn == 1) && (playerTaken[1] || playerTaken[7] || playerTaken[9] || playerTaken[3])) {
+            firstSide = true;
+        };
+    };
+
+    function playerOppositeSide() {
+        if (turn == 3 && firstSide && ((playerTaken[3] && playerTaken[7]) || (playerTaken[1] && playerTaken[9]))) {
+            oppositeSide = true;
+        };
+    };
 });
