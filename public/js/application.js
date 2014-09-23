@@ -107,7 +107,6 @@ $(document).ready(function() {
 
     //Game logic
 
-
     $("#start").click(function(event) {
         if (newGame == false) {
             newGame = true;
@@ -162,7 +161,7 @@ $(document).ready(function() {
 
         if (playerPairs[15 - cellValue]) {
             playing = false;
-            $(".game").append("Player Wins!");
+            $("body").append("Player Wins!");
         };
 
         for (var k = 1; k < 10; k++) {

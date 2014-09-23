@@ -1,48 +1,24 @@
-.game{
-	width: 74%;
-	border: dashed;
-	float: right;
-	text-align: center;
-}
-
-.subheading{
-	border: dotted;
-}
-
-.heading{
-	border: dotted;
-}
-
-.sidebar{
-	width: 24%;
-	position: left;
-	border: solid;
-	float: left;
-}
-
-li{
-	list-style-type: none;
-	padding-bottom: 1em;
-}
-
-button{
-	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
+.table {
 }
 
 td {
-	text-align: center;
-	border: solid;
-	width: 4em;
-	height: 4em;
+    border: none;
+    width: 2em;
+    height: 2em;
 }
 
-table{
-	margin-left: auto;
-	margin-right: auto;
+tr {
+    border: none;
 }
 
-h1, h2{
-	text-align: center;
+[id='8'], [id='1'], [id='3'], [id='5'], [id='4'], [id='9'] {
+    border-right: solid; 
+}
+
+li {
+    list-style-type: none;
+}
+
+h1, h2 {
+    text-align: center;
 }
