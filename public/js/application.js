@@ -14,6 +14,8 @@ $(document).ready(function() {
 
     , newGame = false
 
+    , winner = false
+
     , turn = 1
 
     , firstCorner = false
@@ -84,39 +86,48 @@ $(document).ready(function() {
 
     //Difficulty selection
 
-    $("#easy").click(function(event) {
-        easy = true;
-        medium = false;
-        hard = false;
-        $(".subheading").replaceWith("<h2 class='subheading'>The game you can win.</h2>");
+    $("#easy").click(function() {
+        if (newGame == false) {
+            easy = true;
+            medium = false;
+            hard = false;
+            $(".subheading").replaceWith("<h2 class='subheading'>The game you can win.</h2>");
+        };
     });
 
-    $("#medium").click(function(event) {
-        easy = false;
-        medium = true;
-        hard = false;
-        $(".subheading").replaceWith("<h2 class='subheading'>The game you might win.</h2>");
+    $("#medium").click(function() {
+        if (newGame == false) {
+            easy = false;
+            medium = true;
+            hard = false;
+            $(".subheading").replaceWith("<h2 class='subheading'>The game you might win.</h2>");
+        };
     });
 
-    $("#hard").click(function(event) {
-        easy = false;
-        medium = false;
-        hard = true;
-        $(".subheading").replaceWith("<h2 class='subheading'>The game you won't win.</h2>");
+    $("#hard").click(function() {
+        if (newGame == false) {
+            easy = false;
+            medium = false;
+            hard = true;
+            $(".subheading").replaceWith("<h2 class='subheading'>The game you won't win.</h2>");
+        };
     });
 
     //Game logic
 
-    $("#start").click(function(event) {
+    $("#start").click(function() {
         if (newGame == false) {
             newGame = true;
             playing = true;
+            $("#start").text("Game in progress...");
             if (hard || randFirstPlayer <= 0.5) {
                 compTurn();
             };
         };
+        if (winner == true) {
+            location.reload();
+        };
     });
-
 
     $("td").click(function(event) {
 
@@ -148,9 +159,18 @@ $(document).ready(function() {
 
     function tieCheck() {
         if (spotsTaken.length > 8) {
-            playing = false;
-            location.reload();
+            gameOver("Cat's game!");
         };
+    };
+
+    function gameOver(message) {
+        playing = false;
+        winner = true;
+        $("#start").text("Play again?");
+        $("#winner").prepend("<h2>" + message + "</h2>");
+        setInterval(function() {
+            $("#winner").toggleClass('blinking');
+        }, 700);
     };
 
     //Player logic
@@ -160,8 +180,7 @@ $(document).ready(function() {
         $("#" + cellValue).text("X");
 
         if (playerPairs[15 - cellValue]) {
-            playing = false;
-            $("body").append("Player Wins!");
+            gameOver("Player wins!");
         };
 
         for (var k = 1; k < 10; k++) {
@@ -173,7 +192,6 @@ $(document).ready(function() {
         playerTaken[cellValue] = true;
         spotsTaken.push(cellValue);
         turn += 1;
-        // $(".game").append("Player:" + cellValue);
     };
 
     //AI logic
@@ -182,13 +200,10 @@ $(document).ready(function() {
 
         cellValue = compChoice();
 
-        // $(".game").append("Computer:" + cellValue);
-
         $("#" + cellValue).text("O");
 
         if (compPairs[15 - cellValue]) {
-            playing = false;
-            location.reload();
+            gameOver("Computer wins!");
         };
 
         for (var k = 1; k < 10; k++) {

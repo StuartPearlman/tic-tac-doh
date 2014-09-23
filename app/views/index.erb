@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Unbeatable Tic-Tac-Toe AI coded in pure javaScript">
+    <meta name="description" content="Unbeatable Tic-Tac-Toe AI coded in javaScript">
     <meta name="author" content="Stuart Pearlman">
 
     <title>Tic-Tac-D'oh!</title>
@@ -18,20 +18,22 @@
         <h2 class="subheading">The game you can win.</h2>
       </div>
 
+      <div class="col-md-3"></div>
+
       <div class="row">
-        <div class="col-md-4"> 
+        <div class="col-md-2"> 
             <ul>
                 <h3>Difficulty:</h3>
-                <li><button id="easy">Easy</button></li>
-                <li><button id="medium">Medium</button></li>
-                <li><button id="hard">Hard</button></li>
+                <li><button class="pure-button easy" id="easy">Easy</button></li>
+                <li><button class="pure-button medium" id="medium">Medium</button></li>
+                <li><button class="pure-button hard" id="hard">Hard</button></li>
             </ul>
         </div>
         
-        <div class="col-md-8">
-            <table class="table">
+        <div class="col-md-4">
+            <div id="winner"></div>
+            <table class="table-no-border">
                 <tbody>
-                    <thead></thead>
                     <tr>
                         <td id="8"></td>
                         <td id="1"></td>
@@ -49,9 +51,10 @@
                     </tr>
                 </tbody>
             </table>
-            <button id="start">Start Game</button>
+            <button class="pure-button start" id="start">Start Game</button>
         </div>
 
+        <div class="col-md-3"></div>
     </div> <!-- /container -->
   </body>
 </html>

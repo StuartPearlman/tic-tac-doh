@@ -1,24 +1,95 @@
-.table {
+/*Headings*/
+
+h1, h2 {
+    text-align: center;
 }
 
-td {
-    border: none;
-    width: 2em;
-    height: 2em;
+h1 {
+	font-size: 225%;
 }
 
-tr {
-    border: none;
+h2 {
+	font-size: 175%;
+}
+
+h3 {
+	font-size: 150%;
+}
+
+.blinking {
+	opacity: 0;
+}
+
+/*Game board*/
+
+.col-md-4 {
+    text-align: center;
+}
+
+.table-no-border>thead>tr>th, 
+.table-no-border>tbody>tr>th, 
+.table-no-border>tfoot>tr>th, 
+.table-no-border>thead>tr>td, 
+.table-no-border>tbody>tr>td, 
+.table-no-border>tfoot>tr>td {
+    border-top: none;
+}
+
+.table-no-border {
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 2em;
+}
+
+[id='4'], [id='9'], [id='2'] {
+	border-bottom: none;
 }
 
 [id='8'], [id='1'], [id='3'], [id='5'], [id='4'], [id='9'] {
-    border-right: solid; 
+    border-right: solid;
+}
+
+td {
+    width: 3em;
+    height: 3em;
+    text-align: center;
+    border-bottom: solid;
+    font-size: 2em;
+}
+
+/*Difficulty selection*/
+
+.col-md-2 {
+    margin-top: .5em;
 }
 
 li {
     list-style-type: none;
 }
 
-h1, h2 {
-    text-align: center;
+/*Buttons*/
+
+.pure-button {
+	margin-bottom: 1em;
+	font-size: 110%;
+	color: rgb(255, 255, 240);
+	letter-spacing: .05em;
+}
+
+.easy {
+    background: rgb(28, 184, 65);
+}
+
+.medium {
+    background: rgb(223, 117, 20);
+}
+
+.hard {
+    background: rgb(202, 60, 60);
+}
+
+.start, .again{
+    background: rgb(66, 184, 221);
+    margin-top: 2em;
+    font-size: 125%;
 }
