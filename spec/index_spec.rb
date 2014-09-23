@@ -35,7 +35,7 @@ describe "the homepage", js: true, :type => :feature do
 
 		it "never loses on hard" do
 			visit '/'
-			3000.times do
+			10000.times do
 				page.find_by_id("hard").click()
 				page.find_by_id("start").click()
 				page.find_by_id(rand(9) + 1).click()
