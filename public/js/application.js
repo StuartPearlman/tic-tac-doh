@@ -89,8 +89,11 @@ $(document).ready(function() {
     $("#easy").click(function() {
         if (newGame == false) {
             easy = true;
+            $(".easy").css('background', 'rgb(28, 184, 65)');
             medium = false;
+            $(".medium").css('background', 'gray');
             hard = false;
+            $(".hard").css('background', 'gray');
             $(".subheading").replaceWith("<h2 class='subheading'>The game you can win.</h2>");
         };
     });
@@ -98,8 +101,11 @@ $(document).ready(function() {
     $("#medium").click(function() {
         if (newGame == false) {
             easy = false;
+            $(".easy").css('background', 'gray');
             medium = true;
+            $(".medium").css('background', 'rgb(223, 117, 20)');
             hard = false;
+            $(".hard").css('background', 'gray');
             $(".subheading").replaceWith("<h2 class='subheading'>The game you might win.</h2>");
         };
     });
@@ -107,8 +113,11 @@ $(document).ready(function() {
     $("#hard").click(function() {
         if (newGame == false) {
             easy = false;
+            $(".easy").css('background', 'gray');
             medium = false;
+            $(".medium").css('background', 'gray');
             hard = true;
+            $(".hard").css('background', 'rgb(202, 60, 60)');
             $(".subheading").replaceWith("<h2 class='subheading'>The game you won't win.</h2>");
         };
     });
