@@ -7,7 +7,7 @@ An unbeatable Tic-Tac-Toe opponent. Try your best, if you dare...
   + Easy (You can win.)
   + Medium (You may win.)
   + Hard (You won't win.)
-+ Alternating turns
++ Alternating first turns
 + Responsive CSS
 + Difficulty level retention between games
 + AI written in JavaScript using BDD and TDD techniques
