@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'rack/test'
-require 'nokogiri'
 require "rspec"
 require "capybara"
 require "capybara/dsl"
@@ -36,12 +35,6 @@ module SinatraHelper
   end
 end
 
-module NokogiriHelper
-  def parsed_body
-    Nokogiri::HTML(last_response.body)
-  end
-end
-
 module FakeSessionHelper
   def session
     @session ||= {}
@@ -60,7 +53,6 @@ end
 RSpec.configure do |config|
   config.include Rack::Test::Methods
   config.include SinatraHelper
-  config.include NokogiriHelper
   config.include FakeSessionHelper
   config.include Capybara::DSL
   config.mock_with :rspec
