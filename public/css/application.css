@@ -16,6 +16,11 @@ h3 {
 	font-size: 150%;
 }
 
+/*Winner column*/
+#winner {
+    text-align: center;
+}
+
 .blinking {
 	opacity: 0;
 }
@@ -41,11 +46,11 @@ h3 {
 	margin-top: 2em;
 }
 
-[id='4'], [id='9'], [id='2'] {
+[id='square-seven'], [id='square-eight'], [id='square-nine'] {
 	border-bottom: none;
 }
 
-[id='8'], [id='1'], [id='3'], [id='5'], [id='4'], [id='9'] {
+[id='square-one'], [id='square-two'], [id='square-four'], [id='square-five'], [id='square-seven'], [id='square-eight'] {
     border-right: solid;
 }
 
@@ -86,15 +91,13 @@ li {
 }
 
 .medium {
-    background: gray;
+    background: rgb(223, 117, 20);
 }
 
 .hard {
-    background: gray;
+    background: rgb(202, 60, 60);
 }
 
-.start, .again{
-    background: rgb(66, 184, 221);
-    margin-top: 2em;
-    font-size: 125%;
+.inactive{
+    background: gray;
 }
