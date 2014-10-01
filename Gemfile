@@ -7,8 +7,6 @@ gem 'sinatra-contrib'
 # Use Thin as web server
 gem 'thin'
 
-# gem 'activesupport', '~>4.1'
-
 gem 'rake'
 
 group :test do

@@ -77,7 +77,7 @@ function winOrBlock(compChoices) {
 
 function strategicChoice(compChoices) {
 
-    if (easy) {
+    if (difficulty == 'easy') {
         return easyMode(compChoices);
     } else {
         return mediumToHard(compChoices);

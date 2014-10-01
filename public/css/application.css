@@ -86,10 +86,14 @@ li {
 }
 
 .medium {
-    background: gray;
+    background: rgb(223, 117, 20);
 }
 
 .hard {
+    background: rgb(202, 60, 60);
+}
+
+.inactive{
     background: gray;
 }
 

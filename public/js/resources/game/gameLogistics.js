@@ -26,10 +26,6 @@ function startGame() {
     if (newGame == false) {
         newGame = true;
         playing = true;
-        $("#start").text("Game in progress...");
-        if (hard || randFirstPlayer <= 0.5) {
-            compTurn();
-        };
     };
 };
 
@@ -55,11 +51,16 @@ function gameOver(message) {
     playing = false;
     winner = true;
     $("#winner").prepend("<h2>" + message + "</h2>");
-    $("#start").text("Play again?");
 
     setInterval(function() {
-        $("#start").toggleClass('blinking');
+        $("#winner").toggleClass('blinking');
     }, 900);
+};
+
+function reloadIfWinner() {
+    if (winner == true) {
+            location.reload();
+    };
 };
 
 function getKey(object, value) {

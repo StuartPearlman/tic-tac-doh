@@ -1,5 +1,4 @@
 function load(script) {
-    // document.write('<'+'script src="'+script+'" type="text/javascript"><' + '/script>');
     document.write('<script src=/js/resources/' + script + ' ' + 'type=text/javascript></script>');
 };
 
@@ -13,35 +12,17 @@ $(document).ready(function() {
 
     previousDifficulty();
 
-    $("#easy").click(function() {
-        easySetting();
-        if (winner == true) {
-            location.reload();
-        };
-    });
+    if ((difficulty == 'hard') || (randFirstPlayer <= 0.5)) {
+        compTurn();
+    };
 
-    $("#medium").click(function() {
-        mediumSetting();
-        if (winner == true) {
-            location.reload();
-        };
-    });
-
-    $("#hard").click(function() {
-        hardSetting();
-        if (winner == true) {
-            location.reload();
-        };
-    });
-
-    $("#start").click(function() {
-        startGame();
-        if (winner == true) {
-            location.reload();
-        };
+    $("li > button").click(function() {
+        reloadIfWinner();
+        selectDifficulty(event.target.id);
     });
 
     $("td").click(function(event) {
+        reloadIfWinner();
         startGame();
 
         var cellValue = squareNumberToCellValue[event.target.id];

@@ -12,6 +12,10 @@
 # 
 src_files:
   - public/js/*.js
+  - public/js/resources/comp/*.js
+  - public/js/resources/game/*.js
+  - public/js/resources/player/*.js
+
 
 # stylesheets
 #
