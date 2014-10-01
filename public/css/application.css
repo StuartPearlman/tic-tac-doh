@@ -16,13 +16,18 @@ h3 {
 	font-size: 150%;
 }
 
+/*Winner column*/
+#winner {
+    text-align: center;
+}
+
 .blinking {
 	opacity: 0;
 }
 
 /*Game board*/
 
-.col-md-4, #winner{
+.col-md-4 {
     text-align: center;
 }
 
@@ -95,10 +100,4 @@ li {
 
 .inactive{
     background: gray;
-}
-
-.start, .again{
-    background: rgb(66, 184, 221);
-    margin-top: 2em;
-    font-size: 125%;
 }

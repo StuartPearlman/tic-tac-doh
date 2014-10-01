@@ -1,11 +1,17 @@
+// easyMode only looks to take the middle square or any corner as its strategy
 function easyMode(compChoices) {
     return middleSquare(compChoices) || anyCorner(compChoices) || false;
 };
 
+//On the higher difficulties, the AI plays defensively against the player while looking to fork when possible
+//and choosing higher value spots overall
 function mediumToHard(compChoices) {
     return strategicSide(compChoices) || attemptFork(compChoices) || middleSquare(compChoices) || oppositeCorner(compChoices) || anyCorner(compChoices) || false;
 };
 
+
+//If the player chooses a corner on the first turn, the AI's next two moves need to be the middle and a side.
+//Otherwise, the player can set up a fork and the AI will lose
 function strategicSide(compChoices) {
 
     if (firstCorner && turn == 4) {
@@ -26,6 +32,8 @@ function strategicSide(compChoices) {
     return false;
 };
 
+//When the player takes up two opposite sides on their first turns, they are leaving themselves open to a fork.
+//This function returns a corner when that happens in order to build a fork from it. 
 function attemptFork(compChoices) {
 
     if (firstSide && oppositeSide) {
@@ -35,6 +43,7 @@ function attemptFork(compChoices) {
     return false;
 };
 
+//Returns to middle square, if available
 function middleSquare(compChoices) {
 
     for (var k = 0; k < compChoices.length; k++) {
@@ -48,6 +57,7 @@ function middleSquare(compChoices) {
     return false;
 };
 
+//Returns the opposite corner to one the player has selected. This is a defensive move against forks. 
 function oppositeCorner(compChoices) {
 
     for (var k = 0; k < compChoices.length; k++) {
@@ -69,6 +79,7 @@ function oppositeCorner(compChoices) {
     return false;
 };
 
+//Returns any available corner
 function anyCorner(compChoices) {
 
     for (var k = 0; k < compChoices.length; k++) {

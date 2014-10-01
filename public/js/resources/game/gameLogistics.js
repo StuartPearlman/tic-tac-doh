@@ -1,15 +1,14 @@
-var randFirstPlayer = Math.random()
+var spotsTaken = [] //The game board starts empty
 
-, spotsTaken = []
+, playing = false //A game is not inititially being played
 
-, playing = false
+, newGame = false //Detecting a new game prevents players from switching difficulties mid-game
 
-, newGame = false
+, winner = false //The game ends when there is a winner
 
-, winner = false
+, turn = 1 //First turn 
 
-, turn = 1
-
+//Map the ids in the view to their "magic" values
 , squareNumberToCellValue = {
     "square-one": 8,
     "square-two": 1,
@@ -22,6 +21,7 @@ var randFirstPlayer = Math.random()
     "square-nine": 2
 };
 
+//Starts a new game and makes it active
 function startGame() {
     if (newGame == false) {
         newGame = true;
@@ -30,7 +30,8 @@ function startGame() {
 };
 
 function runGame(cellValue) {
-    if (playing) {
+    //'playing' is checked before every move so that the game ends after there is a winner
+    if (playing) { 
         playerTurn(cellValue);
     };
     if (playing) {
@@ -42,27 +43,30 @@ function runGame(cellValue) {
 };
 
 function tieCheck() {
-    if (spotsTaken.length > 8) {
+    if (spotsTaken.length > 8) { //If nine spots are taken, the board is full and it's a tie
         gameOver("Cat's game!");
     };
 };
 
+//Run after a winner or tie is determined
 function gameOver(message) {
-    playing = false;
-    winner = true;
-    $("#winner").prepend("<h2>" + message + "</h2>");
+    playing = false; //Prevent another turn
+    winner = true; //End the game
+    $("#winner").prepend("<h2>" + message + "</h2>"); //Append message to document
 
     setInterval(function() {
-        $("#winner").toggleClass('blinking');
+        $("#winner").toggleClass('blinking'); //Flash that message playfully
     }, 900);
 };
 
+//This function is called to reset the game
 function reloadIfWinner() {
     if (winner == true) {
-            location.reload();
+        location.reload();
     };
 };
 
+//Each square's id is mapped to its "magic value". This function allows the "magic value" to return the id as well.
 function getKey(object, value) {
     for (var key in object) {
         if (object[key] == value) {
