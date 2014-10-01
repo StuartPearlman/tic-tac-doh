@@ -3,7 +3,6 @@ function load(script) {
     document.write('<script src=/js/resources/' + script + ' ' + 'type=text/javascript></script>');
 };
 
-load("game/variables.js");
 load("game/gameLogistics.js");
 load("game/difficultySetting.js");
 load("comp/compLogic.js");
@@ -16,33 +15,36 @@ $(document).ready(function() {
 
     $("#easy").click(function() {
         easySetting();
+        if (winner == true) {
+            location.reload();
+        };
     });
 
     $("#medium").click(function() {
         mediumSetting();
+        if (winner == true) {
+            location.reload();
+        };
     });
 
     $("#hard").click(function() {
         hardSetting();
+        if (winner == true) {
+            location.reload();
+        };
     });
 
     $("#start").click(function() {
-        if (newGame == false) {
-            newGame = true;
-            playing = true;
-            $("#start").text("Game in progress...");
-            if (hard || randFirstPlayer <= 0.5) {
-                compTurn();
-            };
-        };
+        startGame();
         if (winner == true) {
             location.reload();
         };
     });
 
     $("td").click(function(event) {
+        startGame();
 
-        var cellValue = parseInt(event.target.id);
+        var cellValue = squareNumberToCellValue[event.target.id];
 
         if (spotsTaken.indexOf(cellValue) == -1 && playing) {
 

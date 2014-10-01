@@ -1,3 +1,11 @@
+var easy = true
+
+, medium = false
+
+, hard = false
+
+, difficulty = localStorage.getItem('difficulty');
+
 function easySetting() {
     if (newGame == false) {
         easy = true;
