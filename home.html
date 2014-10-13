@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Unbeatable Tic-Tac-Toe AI coded in JavaScript">
+    <meta name="author" content="Stuart Pearlman">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+    <link rel="stylesheet" href="/css/application.css">
+    <link rel="icon" type="image/png" href="/favicon.ico">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/application.js"></script>
+
+    <title>Tic-Tac-D'oh!</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="page-header">
+            <h1>Tic-Tac-D'oh!</h1>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-2"></div>
+
+            <div class="col-md-2">
+                <ul>
+                    <h3>Choose Difficulty:</h3>
+                    <li>
+                        <button class="pure-button easy" id="easy">Easy</button>
+                    </li>
+                    <li>
+                        <button class="pure-button medium" id="medium">Medium</button>
+                    </li>
+                    <li>
+                        <button class="pure-button hard" id="hard">Hard</button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-4">
+                <table class="table-no-border">
+                    <tbody>
+                        <tr>
+                            <td id="square-one"></td>
+                            <td id="square-two"></td>
+                            <td id="square-three"></td>
+                        </tr>
+                        <tr>
+                            <td id="square-four"></td>
+                            <td id="square-five"></td>
+                            <td id="square-six"></td>
+                        </tr>
+                        <tr>
+                            <td id="square-seven"></td>
+                            <td id="square-eight"></td>
+                            <td id="square-nine"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-2" id="winner"></div>
+        </div> <!-- /row -->
+    </div> <!-- /container -->
+</body>
+
+</html>

@@ -11,7 +11,7 @@
 
 //Pure JS has no 'require relative'. This function is one way to address that:
 function load(script) {
-    document.write('<script src=/js/resources/' + script + ' ' + 'type=text/javascript></script>');
+    document.write('<script src=/js/logicCore/' + script + ' ' + 'type=text/javascript></script>');
 };
 
 //Load all dependencies
